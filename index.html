@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIDAN GAARA NIG LTD | Premier Real Estate Abuja</title>
+    <meta name="description" content="GIDAN GAARA NIG LTD - Trusted real estate solutions in Abuja, Nigeria. Buy land, houses, and commercial properties with Bashir Muhammad.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary-green: #1B5E20;
+            --light-green: #2E7D32;
+            --accent-gold: #C9A227;
+            --light-gold: #D4AF37;
+            --deep-green: #0D3310;
+            --off-white: #F8FAF8;
+            --pure-white: #FFFFFF;
+            --text-dark: #1A1A1A;
+            --text-light: #E8F5E9;
+            --border-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--off-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-green);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-ring {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(201, 162, 39, 0.2);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 24px;
+        }
+
+        .loader-text {
+            color: var(--pure-white);
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .loader-sub {
+            color: var(--accent-gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            margin-top: 4px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 14px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--pure-white);
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .logo-main {
+            color: var(--primary-green);
+        }
+
+        .logo-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            margin-left: 2px;
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .logo-sub {
+            color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--text-dark);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-cta {
+            background: var(--primary-green);
+            color: var(--pure-white) !important;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--light-green);
+            transform: scale(1.05);
+            color: var(--pure-white) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--pure-white);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled .hamburger span {
+            background: var(--primary-green);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        #hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        #three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 51, 16, 0.3) 0%, rgba(13, 51, 16, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--pure-white);
+            max-width: 700px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 560px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-gold);
+            color: var(--deep-green);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--pure-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 2px solid var(--pure-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--pure-white);
+            color: var(--deep-green);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: var(--pure-white);
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background: var(--off-white);
+            padding: 120px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 0.85fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 48px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(13, 51, 16, 0.15);
+            object-fit: cover;
+            height: 480px;
+        }
+
+        .ceo-card {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--pure-white);
+            padding: 20px 28px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .ceo-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .ceo-title {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        /* ===== PROPERTIES SECTION ===== */
+        #properties {
+            background: var(--pure-white);
+            padding: 120px 0;
+        }
+
+        .properties-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .properties-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .property-card {
+            background: var(--pure-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(27, 94, 32, 0.12);
+        }
+
+        .property-image-wrapper {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+
+        .property-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover .property-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--accent-gold);
+            color: var(--deep-green);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .property-body {
+            padding: 24px;
+        }
+
+        .property-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-bottom: 16px;
+        }
+
+        .property-location i {
+            color: var(--accent-gold);
+            font-size: 14px;
+        }
+
+        .property-price {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .property-detail {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .property-detail i {
+            color: var(--primary-green);
+            font-size: 14px;
+        }
+
+        .property-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-green);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .property-btn:hover {
+            background: var(--light-green);
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        #gallery {
+            background: var(--deep-green);
+            padding: 120px 0;
+        }
+
+        #gallery .section-title,
+        #gallery .section-eyebrow {
+            color: var(--pure-white);
+        }
+
+        #gallery .section-subtitle {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .gallery-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
+            gap: 16px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(13, 51, 16, 0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: var(--pure-white);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            background: var(--off-white);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-info-item .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(27, 94, 32, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item .icon i {
+            color: var(--accent-gold);
+            font-size: 18px;
+        }
+
+        .contact-info-item .icon i.fa-whatsapp {
+            color: #25D366;
+        }
+
+        .contact-info-item .icon i.fa-phone {
+            color: var(--primary-green);
+        }
+
+        .contact-info-content h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .contact-info-content a,
+        .contact-info-content p {
+            font-size: 15px;
+            color: var(--text-dark);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-content a:hover {
+            color: var(--accent-gold);
+        }
+
+        .map-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-green);
+            margin-bottom: 32px;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            display: block;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            background: var(--pure-white);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--border-green);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: var(--primary-green);
+            color: var(--pure-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .form-submit:hover {
+            background: var(--light-green);
+        }
+
+        .form-submit.success {
+            background: var(--accent-gold);
+            color: var(--deep-green);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--deep-green);
+            padding: 64px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+        }
+
+        .footer-brand .logo-main {
+            color: var(--pure-white);
+            font-size: 22px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .footer-brand .logo-sub {
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--pure-white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pure-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-gold);
+            color: var(--deep-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .properties-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--pure-white);
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                color: var(--text-dark) !important;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 42px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            #about,
+            #properties,
+            #gallery,
+            #contact {
+                padding: 64px 0;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-image {
+                height: 320px;
+            }
+
+            .ceo-card {
+                left: 16px;
+                bottom: -16px;
+                padding: 14px 20px;
+            }
+
+            .stats-row {
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 200px;
+            }
+
+            .gallery-item.tall,
+            .gallery-item.wide {
+                grid-row: span 1;
+                grid-column: span 1;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-ring"></div>
+        <div class="loader-text">GIDAN GAARA</div>
+        <div class="loader-sub">NIG LTD</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-main">GIDAN GAARA</span>
+                <span class="logo-sub">NIG LTD</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div id="three-canvas"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Abuja's Trusted Real Estate Partner</div>
+            <h1 class="hero-title">Find Your Dream Property in Abuja</h1>
+            <p class="hero-subtitle">Trusted Real Estate Solutions by GIDAN GAARA NIG LTD. We connect you with premium land and homes across the Federal Capital Territory.</p>
+            <div class="hero-buttons">
+                <a href="#properties" class="btn-primary">
+                    <i class="fas fa-home"></i>
+                    View Properties
+                </a>
+                <a href="#contact" class="btn-secondary">
+                    <i class="fas fa-phone"></i>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down fa-2x"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content reveal">
+                    <span class="section-eyebrow">About Us</span>
+                    <h2 class="section-title">Building Trust, Delivering Homes</h2>
+                    <p>GIDAN GAARA NIG LTD is a premier real estate company based in Abuja, Nigeria. We specialize in residential and commercial property sales, land acquisition, and real estate investment consulting. Led by our CEO Bashir Muhammad, our team brings over a decade of local market expertise to every transaction.</p>
+                    <p>Whether you are buying your first home, investing in land, or expanding your property portfolio, we guide you through every step with transparency and professionalism.</p>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Properties Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image-wrapper reveal reveal-delay-2">
+                    <img src="./images/1_26_Abuja_Skyline_Stock_Photos_High.png" alt="Abuja Cityscape" class="about-image" ">
+                    <div class="ceo-card">
+                        <div class="ceo-name">Bashir Muhammad</div>
+                        <div class="ceo-title">Chief Executive Officer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section id="properties">
+        <div class="container">
+            <div class="properties-header reveal">
+                <span class="section-eyebrow">Featured Listings</span>
+                <h2 class="section-title">Premium Properties in Abuja</h2>
+                <p class="section-subtitle">Handpicked land and homes in the Federal Capital Territory's finest locations</p>
+            </div>
+            <div class="properties-grid">
+                <!-- Property 1 -->
+                <div class="property-card reveal reveal-delay-1">
+                    <div class="property-image-wrapper">
+                        <img src="./images/3_Land_for_sale_in_Abuja_Nigeria_Mshel.png" alt="Land in Gwarinpa">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Prime Land in Gwarinpa</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Gwarinpa, Abuja</span>
+                        </div>
+                        <div class="property-price">₦45,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-expand"></i>
+                                <span>600 sqm</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Land</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Residential</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Property 2 -->
+                <div class="property-card reveal reveal-delay-2">
+                    <div class="property-image-wrapper">
+                        <img src="./images/5_Brand_New_Luxury_6_bedroom_Mansion.png" alt="Luxury Villa in Maitama">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Luxury Villa in Maitama</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Maitama, Abuja</span>
+                        </div>
+                        <div class="property-price">₦250,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-bed"></i>
+                                <span>5 Bedrooms</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-bath"></i>
+                                <span>6 Baths</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-home"></i>
+                                <span>House</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Property 3 -->
+                <div class="property-card reveal reveal-delay-3">
+                    <div class="property-image-wrapper">
+                        <img src="./images/4_Over_1_000_SQM_of_Fenced_Land_With.png" alt="Commercial Plot in Wuse" ">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Commercial Plot in Wuse</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Wuse, Abuja</span>
+                        </div>
+                        <div class="property-price">₦80,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-expand"></i>
+                                <span>1000 sqm</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Land</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Commercial</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Property 4 -->
+                <div class="property-card reveal reveal-delay-1">
+                    <div class="property-image-wrapper">
+                        <img src="./images/8_The_Ultimate_Guide_to_Luxury_Real.png" alt="Modern Apartment in Jabi" ">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Modern Apartment in Jabi</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jabi, Abuja</span>
+                        </div>
+                        <div class="property-price">₦65,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-bed"></i>
+                                <span>3 Bedrooms</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-bath"></i>
+                                <span>3 Baths</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-home"></i>
+                                <span>Apartment</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Property 5 -->
+                <div class="property-card reveal reveal-delay-2">
+                    <div class="property-image-wrapper">
+                        <img src="./images/9_Land_for_sale_in_Abuja_Nigeria_Mshel.png" alt="Estate Land in Lugbe" ">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Estate Land in Lugbe</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lugbe, Abuja</span>
+                        </div>
+                        <div class="property-price">₦35,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-expand"></i>
+                                <span>500 sqm</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Land</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>Residential</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Property 6 -->
+                <div class="property-card reveal reveal-delay-3">
+                    <div class="property-image-wrapper">
+                        <img src="./images/2_Luxury_6_Bedroom_Penthouses_for_Lease.png" alt="Penthouse in Asokoro" ">
+                        <span class="property-badge">For Sale</span>
+                    </div>
+                    <div class="property-body">
+                        <h3 class="property-title">Penthouse in Asokoro</h3>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Asokoro, Abuja</span>
+                        </div>
+                        <div class="property-price">₦180,000,000</div>
+                        <div class="property-details">
+                            <div class="property-detail">
+                                <i class="fas fa-bed"></i>
+                                <span>4 Bedrooms</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-bath"></i>
+                                <span>5 Baths</span>
+                            </div>
+                            <div class="property-detail">
+                                <i class="fas fa-home"></i>
+                                <span>Penthouse</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="property-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <div class="gallery-header reveal">
+                <span class="section-eyebrow">Our Portfolio</span>
+                <h2 class="section-title">Abuja Through Our Lens</h2>
+                <p class="section-subtitle">A glimpse into the properties and landscapes we represent</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item tall reveal">
+                    <img src="./images/4_Aso_Rock_Iconic_Landmark_in_Abuj.png" alt="Aso Rock Abuja" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Aso Rock, Abuja</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-1">
+                    <img src="./images/6_Nigeria_Luxury_Exterior_Design_Showcas.png" alt="Luxury Exterior" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Luxury Estate</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-2">
+                    <img src="./images/7_Modern_Lastest_House_Designs_in_Nigeria.png" alt="Modern House" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Modern Design</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-1">
+                    <img src="./images/2_Abuja_Real_Estate_Houses_For_Sale.png" alt="Terraced Houses" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Galadimawa Terrace</span>
+                    </div>
+                </div>
+                <div class="gallery-item wide reveal reveal-delay-2">
+                    <img src="./images/1_9_Types_Of_Houses_In_Nigeria_Pictures.png" alt="Residential Area" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Residential Neighborhood</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-3">
+                    <img src="./images/5_Abuja_National_Mosque_Mosqpedia.png" alt="National Mosque" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Abuja National Mosque</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-1">
+                    <img src="./images/10_Modern_Lastest_House_Designs_in_Nigeria.png" alt="Contemporary Home" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Contemporary Home</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-2">
+                    <img src="./images/3_4_Bedroom_Duplex_Ref_4039_NIGERIAN.png" alt="Modern Duplex" ">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Modern Duplex</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-left reveal">
+                    <span class="section-eyebrow">Get in Touch</span>
+                    <h2 class="section-title">Start Your Property Journey</h2>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <div class="icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Email</h4>
+                                <a href="mailto:Mohammedbashir1503@gmail.com">Mohammedbashir1503@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>WhatsApp</h4>
+                                <a href="https://wa.me/2348036827998" target="_blank">+234 803 682 7998</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Phone</h4>
+                                <a href="tel:+2348036827998">+234 803 682 7998</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="icon">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Address</h4>
+                                <p>1 Uke St, Garki 2, Abuja 900001, FCT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-right reveal reveal-delay-2">
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5545398938097!2d7.4956!3d9.0279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ba6153f8d6d%3A0x8c3f1b9f0e6b5c8a!2sGarki%2C%20Abuja!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your property needs..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-main">GIDAN GAARA</span>
+                    <span class="logo-sub">NIG LTD</span>
+                    <p>Your Trusted Abuja Real Estate Partner. We make property dreams a reality across the Federal Capital Territory.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#properties">Properties</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact">
+                        <p><i class="fab fa-whatsapp" style="color: #25D366; margin-right: 8px;"></i> +234 803 682 7998</p>
+                        <p><i class="fas fa-envelope" style="color: var(--accent-gold); margin-right: 8px;"></i> Mohammedbashir1503@gmail.com</p>
+                    </div>
+                    <div class="footer-social">
+                        <a href="https://wa.me/2348036827998" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GIDAN GAARA NIG LTD. All rights reserved.</p>
+                <p>Crafted with care in Abuja, Nigeria</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ===== ADD JS-ENABLED CLASS ===== */
+        document.body.classList.add('js-enabled');
+
+        /* ===== LOADING SCREEN ===== */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+                animateHero();
+            }, 1500);
+        });
+
+        /* ===== THREE.JS 3D BACKGROUND ===== */
+        (function() {
+            const container = document.getElementById('three-canvas');
+            if (!container) return;
+
+            // Check if mobile
+            const isMobile = window.innerWidth < 768;
+            const buildingCount = isMobile ? 30 : 50;
+            const particleCount = isMobile ? 100 : 200;
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x0D3310, 0.02);
+
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 15, 35);
+            camera.lookAt(0, 0, 0);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x0D3310, 1);
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffd700, 0.8);
+            dirLight.position.set(20, 30, 20);
+            scene.add(dirLight);
+
+            const pointLight = new THREE.PointLight(0xC9A227, 0.5, 50);
+            pointLight.position.set(-10, 15, 10);
+            scene.add(pointLight);
+
+            // Buildings
+            const buildings = [];
+            const buildingGroup = new THREE.Group();
+            scene.add(buildingGroup);
+
+            const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+            const edgesGeometry = new THREE.EdgesGeometry(boxGeometry);
+
+            for (let i = 0; i < buildingCount; i++) {
+                const width = Math.random() * 1.5 + 0.8;
+                const depth = Math.random() * 1.5 + 0.8;
+                const height = Math.random() * 8 + 2;
+                const x = (Math.random() - 0.5) * 40;
+                const z = (Math.random() - 0.5) * 30;
+
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0x1B5E20,
+                    transparent: true,
+                    opacity: Math.random() * 0.3 + 0.4,
+                    shininess: 60
+                });
+
+                const building = new THREE.Mesh(boxGeometry, material);
+                building.position.set(x, height / 2, z);
+                building.scale.set(width, height, depth);
+                buildingGroup.add(building);
+
+                // Gold edges
+                const edgesMaterial = new THREE.LineBasicMaterial({ color: 0xC9A227, transparent: true, opacity: 0.3 });
+                const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+                edges.position.set(x, height / 2, z);
+                edges.scale.set(width, height, depth);
+                buildingGroup.add(edges);
+
+                buildings.push({
+                    mesh: building,
+                    edges: edges,
+                    baseY: height / 2,
+                    phase: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.3 + 0.2
+                });
+            }
+
+            // Ground plane
+            const groundGeometry = new THREE.PlaneGeometry(100, 100);
+            const groundMaterial = new THREE.MeshPhongMaterial({
+                color: 0x0D3310,
+                transparent: true,
+                opacity: 0.8,
+                shininess: 30
+            });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -0.5;
+            scene.add(ground);
+
+            // Golden particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const speeds = [];
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 50;
+                positions[i * 3 + 1] = Math.random() * 25;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+                speeds.push({
+                    y: Math.random() * 0.03 + 0.01,
+                    wobble: Math.random() * 0.01,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                color: 0xD4AF37,
+                size: 0.25,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+
+            // Mouse interaction
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetCameraX = 0;
+            let targetCameraY = 15;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            // Animation
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsed = clock.getElapsedTime();
+
+                // Orbit camera
+                const orbitRadius = 35;
+                const orbitSpeed = 0.002;
+                camera.position.x = Math.sin(elapsed * orbitSpeed) * orbitRadius;
+                camera.position.z = Math.cos(elapsed * orbitSpeed) * orbitRadius;
+
+                // Mouse parallax
+                targetCameraX += (mouseX * 5 - targetCameraX) * 0.02;
+                targetCameraY += ((15 - mouseY * 5) - targetCameraY) * 0.02;
+                camera.position.x += targetCameraX;
+                camera.position.y = targetCameraY;
+                camera.lookAt(0, 3, 0);
+
+                // Animate buildings
+                buildings.forEach((b, i) => {
+                    const yOffset = Math.sin(elapsed * b.speed + b.phase) * 0.3;
+                    b.mesh.position.y = b.baseY + yOffset;
+                    b.edges.position.y = b.baseY + yOffset;
+                });
+
+                // Rotate building group slightly
+                buildingGroup.rotation.y = Math.sin(elapsed * 0.05) * 0.05;
+
+                // Animate particles
+                const posArray = particles.geometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    const s = speeds[i];
+                    posArray[i * 3 + 1] += s.y;
+                    posArray[i * 3] += Math.sin(elapsed + s.phase) * s.wobble;
+
+                    // Reset to bottom
+                    if (posArray[i * 3 + 1] > 25) {
+                        posArray[i * 3 + 1] = 0;
+                        posArray[i * 3] = (Math.random() - 0.5) * 50;
+                        posArray[i * 3 + 2] = (Math.random() - 0.5) * 40;
+                    }
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+
+                // Gentle particle rotation
+                particles.rotation.y = elapsed * 0.02;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        /* ===== NAVBAR SCROLL EFFECT ===== */
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        /* ===== MOBILE MENU ===== */
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        /* ===== HERO ANIMATIONS ===== */
+        function animateHero() {
+            gsap.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' });
+            gsap.to('.hero-title', { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: 'power3.out' });
+            gsap.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: 'power3.out' });
+            gsap.to('.hero-buttons', { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: 'power3.out' });
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        /* ===== GSAP SCROLL ANIMATIONS ===== */
+        gsap.registerPlugin(ScrollTrigger);
+
+        // About section parallax
+        gsap.to('.about-image', {
+            yPercent: -8,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Property cards stagger - using fromTo for reliable animation
+        gsap.utils.toArray('.property-card').forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 60, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8,
+                    delay: i * 0.1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        // Gallery items - using fromTo for reliable animation
+        gsap.utils.toArray('.gallery-item').forEach((item, i) => {
+            gsap.fromTo(item,
+                { scale: 0.95, opacity: 0 },
+                {
+                    scale: 1, opacity: 1, duration: 0.7,
+                    delay: i * 0.08,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 95%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        // Contact slide-in - using fromTo for reliable animation
+        gsap.fromTo('.contact-left',
+            { x: -50, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('.contact-right',
+            { x: 50, opacity: 0 },
+            {
+                x: 0, opacity: 1, duration: 0.8,
+                delay: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        /* ===== CONTACT FORM ===== */
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.textContent = 'Message Sent!';
+                submitBtn.classList.add('success');
+                contactForm.reset();
+
+                setTimeout(() => {
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.classList.remove('success');
+                    submitBtn.disabled = false;
+                }, 2500);
+            }, 1500);
+        });
+
+        /* ===== NAVBAR LINK ACTIVE STATE ===== */
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        /* ===== SMOOTH ANCHOR SCROLL ===== */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
